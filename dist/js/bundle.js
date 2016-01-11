@@ -19775,6 +19775,11 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(
+	          'div',
+	          { className: 'whitespace-border-bottom' },
+	          _react2.default.createElement('hr', null)
+	        ),
+	        _react2.default.createElement(
 	          'ul',
 	          { className: 'pokemon-list' },
 	          listElements
@@ -34111,7 +34116,7 @@
 /* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -34122,6 +34127,8 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(162);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34141,31 +34148,30 @@
 	  }
 
 	  _createClass(_class, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
+	        'div',
 	        null,
 	        _react2.default.createElement(
-	          "header",
-	          { className: "main-header" },
+	          'header',
+	          { className: 'main-header' },
 	          _react2.default.createElement(
-	            "h1",
-	            { className: "main-title" },
-	            "POKÉDEX"
+	            'h1',
+	            { className: 'main-title' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/', className: 'pokemon-link__white' },
+	              'POKÉDEX'
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(
-	          "div",
-	          { className: "whitespace-border-bottom" },
-	          _react2.default.createElement("hr", null)
-	        ),
-	        _react2.default.createElement(
-	          "section",
-	          { className: "main-container" },
+	          'section',
+	          { className: 'main-container' },
 	          _react2.default.createElement(
-	            "section",
-	            { className: "list-container", id: "js-list-container" },
+	            'section',
+	            { className: 'list-container', id: 'js-list-container' },
 	            this.props.children
 	          )
 	        )
@@ -34215,21 +34221,31 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PokemonDetail).call(this));
 
 	    _this.state = {
-	      image_src: "http://pokeapi.co/media/img/130.png",
+	      image_src: "",
 	      pokemon: {},
-	      loaded: false
+	      loaded: false,
+	      description: ""
 	    };
 	    return _this;
 	  }
 
 	  _createClass(PokemonDetail, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.setState({ image_src: "http://pokeapi.co/media/img/" + this.props.params.number + ".png" });
+	    }
+	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      _jquery2.default.get(this.props.base_api + this.props.params.number, function (result) {
-	        this.setState({
+	      _jquery2.default.get(this.props.base_api + '/pokemon/' + this.props.params.number).then(function (result) {
+	        return this.setState({
 	          pokemon: result,
 	          loaded: true
 	        });
+	      }.bind(this)).then(function (r) {
+	        return _jquery2.default.get(this.props.api_domain + this.state.pokemon.descriptions[0].resource_uri);
+	      }.bind(this)).then(function (r) {
+	        return this.setState({ description: r.description });
 	      }.bind(this));
 	    }
 	  }, {
@@ -34238,6 +34254,9 @@
 
 	      var abilities = this.state.loaded ? this.state.pokemon.abilities.map(function (ability) {
 	        return ability.name;
+	      }) : undefined;
+	      var types = this.state.loaded ? this.state.pokemon.types.map(function (type, index) {
+	        return _react2.default.createElement(Type, { key: index, name: type.name });
 	      }) : undefined;
 	      if (this.state.loaded) {
 	        abilities = abilities.join(', ');
@@ -34250,27 +34269,31 @@
 	          { className: 'pokemon-detail__header' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: '' },
-	            _react2.default.createElement('img', { src: this.state.image_src, alt: '', className: 'pokemon-detail__image' })
+	            { className: 'detail-top first-half' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'pokemon-detail__image-container' },
+	              _react2.default.createElement('img', { src: this.state.image_src, alt: '', className: 'pokemon-detail__image' })
+	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            null,
+	            { className: 'detail-top second-half' },
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              { className: 'pokemon-list__number paragraph-info' },
 	              '#',
 	              this.props.params.number
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
+	              { className: 'paragraph-info' },
 	              this.state.pokemon.name
 	            ),
 	            _react2.default.createElement(
 	              'p',
-	              null,
-	              'WATER FLYING'
+	              { className: 'paragraph-info' },
+	              types
 	            )
 	          )
 	        ),
@@ -34279,7 +34302,7 @@
 	          null,
 	          _react2.default.createElement(
 	            'table',
-	            null,
+	            { className: 'general-info' },
 	            _react2.default.createElement(
 	              'tbody',
 	              null,
@@ -34288,12 +34311,12 @@
 	                null,
 	                _react2.default.createElement(
 	                  'td',
-	                  null,
+	                  { className: 'table-title' },
 	                  'HEIGHT'
 	                ),
 	                _react2.default.createElement(
 	                  'td',
-	                  null,
+	                  { className: 'table-text' },
 	                  this.state.pokemon.height,
 	                  '0 cm'
 	                )
@@ -34303,19 +34326,19 @@
 	                null,
 	                _react2.default.createElement(
 	                  'td',
-	                  null,
+	                  { className: 'table-title' },
 	                  'WEIGHT'
 	                ),
 	                _react2.default.createElement(
 	                  'td',
-	                  null,
+	                  { className: 'table-text' },
 	                  this.state.pokemon.weight,
 	                  ' kg'
 	                )
 	              ),
 	              _react2.default.createElement(
 	                'tr',
-	                null,
+	                { className: 'table-title' },
 	                _react2.default.createElement(
 	                  'td',
 	                  null,
@@ -34323,7 +34346,7 @@
 	                ),
 	                _react2.default.createElement(
 	                  'td',
-	                  null,
+	                  { className: 'table-text' },
 	                  _react2.default.createElement(
 	                    'span',
 	                    { className: 'abilities-text' },
@@ -34334,13 +34357,13 @@
 	            )
 	          )
 	        ),
-	        _react2.default.createElement('hr', null),
+	        _react2.default.createElement('hr', { className: 'hr' }),
 	        _react2.default.createElement(
 	          'p',
 	          null,
-	          'Lorem ipsum dolor sit amet.'
+	          this.state.description
 	        ),
-	        _react2.default.createElement('hr', null)
+	        _react2.default.createElement('hr', { className: 'hr' })
 	      );
 	    }
 	  }]);
@@ -34348,11 +34371,19 @@
 	  return PokemonDetail;
 	}(_react2.default.Component);
 
-	PokemonDetail.defaultProps = {
-	  base_api: "http://pokeapi.co/api/v1/pokemon/"
+	var Type = function Type(props) {
+	  return _react2.default.createElement(
+	    'span',
+	    { className: 'pokemon-type ' + props.name },
+	    props.name
+	  );
 	};
 
-	//this.props.params.number
+	PokemonDetail.defaultProps = {
+	  base_api: "http://pokeapi.co/api/v1",
+	  api_domain: "http://pokeapi.co"
+	};
+
 	exports.default = PokemonDetail;
 
 /***/ }

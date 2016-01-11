@@ -73,6 +73,9 @@ class PokedexList extends React.Component{
     });
     return (
       <div>
+        <div className="whitespace-border-bottom">
+          <hr/>
+        </div>
         <ul className="pokemon-list">
           {listElements}
         </ul>
