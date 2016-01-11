@@ -51,3 +51,11 @@ body{
     margin-top: 15px;
   }
 }
+
+.hr{
+  border-width: 3px 0 0 0;
+  border-top-color: $grey;
+  border-top-style: solid;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}

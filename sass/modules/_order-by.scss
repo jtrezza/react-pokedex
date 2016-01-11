@@ -5,6 +5,10 @@
   left:0;
   padding-left: 10px;
   padding-right: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  background: $white;
+  height: 80px;
 }
 
 .order-by__items-container{
@@ -15,4 +19,15 @@
 .order-by-anchor{
   color: $dark-grey;
   text-decoration: none;
+}
+
+.filter-container{
+  text-align: center;
+}
+
+.input-filter{
+  margin-top: 6px;
+  width: 90%;
+  height: 20px;
+  border: solid 2px $grey;
 }

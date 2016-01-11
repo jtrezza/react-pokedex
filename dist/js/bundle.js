@@ -19703,11 +19703,34 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PokedexList).call(this));
 
-	    _this.state = { pokedex: [] };
+	    _this.state = { pokedex: [], pokedex_filter: [] };
+	    _this.filter = _this.filter.bind(_this);
+	    _this.sort = _this.sort.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(PokedexList, [{
+	    key: 'filter',
+	    value: function filter(e) {
+	      var filtered = this.state.pokedex.filter(function (pokemon) {
+	        return pokemon.name.indexOf(e.target.value) > -1;
+	      });
+	      this.setState({ pokedex_filter: filtered });
+	    }
+	  }, {
+	    key: 'sort',
+	    value: function sort(e) {
+	      e.preventDefault();
+	      var method = e.target.attributes['data-method'].nodeValue;
+	      var ordered = [];
+	      if (method === 'number') {
+	        ordered = this.state.pokedex_filter.sort(this.compare);
+	      } else if (method === 'letter') {
+	        ordered = this.state.pokedex_filter.sort(this.compareLetter);
+	      }
+	      this.setState({ pokedex_filter: ordered });
+	    }
+	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      _jquery2.default.get(this.props.source, function (result) {
@@ -19716,7 +19739,8 @@
 	        pokemon.sort(this.compare);
 	        pokemon = pokemon.slice(0, 151);
 	        this.setState({
-	          pokedex: pokemon
+	          pokedex: pokemon,
+	          pokedex_filter: pokemon
 	        });
 	      }.bind(this));
 	    }
@@ -19735,17 +19759,50 @@
 	      if (a.number < b.number) return -1;else if (a.number > b.number) return 1;else return 0;
 	    }
 	  }, {
+	    key: 'compareLetter',
+	    value: function compareLetter(a, b) {
+	      if (a.name < b.name) return -1;else if (a.name > b.name) return 1;else return 0;
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
-	      var listElements = this.state.pokedex.map(function (pokemon) {
+	      var listElements = this.state.pokedex_filter.map(function (pokemon) {
 	        return _react2.default.createElement(_PokedexListElement2.default, { key: pokemon.number, base_media: _this2.props.base_media, data: pokemon });
 	      });
 	      return _react2.default.createElement(
-	        'ul',
-	        { className: 'pokemon-list' },
-	        listElements
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'pokemon-list' },
+	          listElements
+	        ),
+	        _react2.default.createElement(
+	          'section',
+	          { className: 'order-by-container' },
+	          _react2.default.createElement('hr', { className: 'hr' }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'order-by__items-container' },
+	            _react2.default.createElement(
+	              'a',
+	              { href: '', 'data-method': 'number', onClick: this.sort, className: 'order-by-anchor' },
+	              'ORDER BY NUMBER'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { href: '', 'data-method': 'letter', onClick: this.sort, className: 'order-by-anchor' },
+	              'ORDER BY LETTER'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'filter-container' },
+	            _react2.default.createElement('input', { type: 'text', className: 'input-filter', onKeyUp: this.filter, placeholder: 'FILTER BY NAME' })
+	          )
+	        )
 	      );
 	    }
 	  }]);
@@ -34111,39 +34168,6 @@
 	            { className: "list-container", id: "js-list-container" },
 	            this.props.children
 	          )
-	        ),
-	        _react2.default.createElement(
-	          "section",
-	          { className: "order-by-container" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "order-by__items-container" },
-	            _react2.default.createElement(
-	              "a",
-	              { href: "", className: "order-by-anchor" },
-	              "NUMBER"
-	            ),
-	            _react2.default.createElement(
-	              "a",
-	              { href: "", className: "order-by-anchor" },
-	              "LETTER"
-	            ),
-	            _react2.default.createElement(
-	              "a",
-	              { href: "", className: "order-by-anchor" },
-	              "REGION"
-	            ),
-	            _react2.default.createElement(
-	              "a",
-	              { href: "", className: "order-by-anchor" },
-	              "TYPE"
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "div",
-	            { className: "filter-container" },
-	            _react2.default.createElement("input", { type: "text", className: "filter" })
-	          )
 	        )
 	      );
 	    }
@@ -34170,6 +34194,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _jquery = __webpack_require__(161);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -34184,16 +34212,135 @@
 	  function PokemonDetail() {
 	    _classCallCheck(this, PokemonDetail);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(PokemonDetail).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PokemonDetail).call(this));
+
+	    _this.state = {
+	      image_src: "http://pokeapi.co/media/img/130.png",
+	      pokemon: {},
+	      loaded: false
+	    };
+	    return _this;
 	  }
 
 	  _createClass(PokemonDetail, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      _jquery2.default.get(this.props.base_api + this.props.params.number, function (result) {
+	        this.setState({
+	          pokemon: result,
+	          loaded: true
+	        });
+	      }.bind(this));
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+
+	      var abilities = this.state.loaded ? this.state.pokemon.abilities.map(function (ability) {
+	        return ability.name;
+	      }) : undefined;
+	      if (this.state.loaded) {
+	        abilities = abilities.join(', ');
+	      }
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        this.props.params.number
+	        { className: 'pokemon-detail' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'pokemon-detail__header' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: '' },
+	            _react2.default.createElement('img', { src: this.state.image_src, alt: '', className: 'pokemon-detail__image' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              '#',
+	              this.props.params.number
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              this.state.pokemon.name
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'WATER FLYING'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'table',
+	            null,
+	            _react2.default.createElement(
+	              'tbody',
+	              null,
+	              _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  'HEIGHT'
+	                ),
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  this.state.pokemon.height,
+	                  '0 cm'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  'WEIGHT'
+	                ),
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  this.state.pokemon.weight,
+	                  ' kg'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  'ABILITIES'
+	                ),
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  _react2.default.createElement(
+	                    'span',
+	                    { className: 'abilities-text' },
+	                    abilities
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement('hr', null),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'Lorem ipsum dolor sit amet.'
+	        ),
+	        _react2.default.createElement('hr', null)
 	      );
 	    }
 	  }]);
@@ -34201,6 +34348,11 @@
 	  return PokemonDetail;
 	}(_react2.default.Component);
 
+	PokemonDetail.defaultProps = {
+	  base_api: "http://pokeapi.co/api/v1/pokemon/"
+	};
+
+	//this.props.params.number
 	exports.default = PokemonDetail;
 
 /***/ }

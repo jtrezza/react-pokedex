@@ -1,6 +1,8 @@
 import React from 'react';
 
 export default class extends React.Component {
+
+
   render() {
     return <div>
       <header className="main-header">
@@ -14,17 +16,6 @@ export default class extends React.Component {
           {this.props.children}
         </section>
 
-      </section>
-      <section className="order-by-container">
-        <div className="order-by__items-container">
-          <a href="" className="order-by-anchor">NUMBER</a>
-          <a href="" className="order-by-anchor">LETTER</a>
-          <a href="" className="order-by-anchor">REGION</a>
-          <a href="" className="order-by-anchor">TYPE</a>
-        </div>
-        <div className="filter-container">
-          <input type="text" className="filter" />
-        </div>
       </section>
     </div>;
   }

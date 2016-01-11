@@ -43,39 +43,47 @@ body {
     border-bottom: solid 3px #BBBBBB;
     margin-top: 15px; }
 
+.hr {
+  border-width: 3px 0 0 0;
+  border-top-color: #BBBBBB;
+  border-top-style: solid;
+  margin-bottom: 10px;
+  margin-top: 10px; }
+
 .list-container {
   height: 100%;
   overflow: auto;
   box-sizing: border-box;
   padding: 56px 50px 56px 10px; }
 
-.pokemon-list:before {
-  content: ' ';
-  color: #BBBBBB;
-  background-color: #BBBBBB;
-  border-radius: 50%;
-  height: 170px;
-  width: 170px;
-  position: fixed;
-  top: 50%;
-  margin-top: -72px;
-  /* -35 que es la mitad, + 23 que es el alto del header */
-  right: -85px;
-  z-index: -2; }
-
-.pokemon-list:after {
-  content: ' ';
-  color: #FFFFFF;
-  background-color: #FFFFFF;
-  border-radius: 50%;
-  height: 70px;
-  width: 70px;
-  position: fixed;
-  top: 50%;
-  margin-top: -22px;
-  /* -35 que es la mitad, + 23 que es el alto del header */
-  right: -35px;
-  z-index: -1; }
+.pokemon-list {
+  padding: 0; }
+  .pokemon-list:before {
+    content: ' ';
+    color: #BBBBBB;
+    background-color: #BBBBBB;
+    border-radius: 50%;
+    height: 170px;
+    width: 170px;
+    position: fixed;
+    top: 50%;
+    margin-top: -72px;
+    /* -35 que es la mitad, + 23 que es el alto del header */
+    right: -85px;
+    z-index: -2; }
+  .pokemon-list:after {
+    content: ' ';
+    color: #FFFFFF;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    position: fixed;
+    top: 50%;
+    margin-top: -22px;
+    /* -35 que es la mitad, + 23 que es el alto del header */
+    right: -35px;
+    z-index: -1; }
 
 .pokemon-list__item {
   list-style: none;
@@ -114,7 +122,11 @@ body {
   bottom: 0;
   left: 0;
   padding-left: 10px;
-  padding-right: 10px; }
+  padding-right: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  height: 80px; }
 
 .order-by__items-container {
   display: flex;
@@ -123,3 +135,12 @@ body {
 .order-by-anchor {
   color: #999999;
   text-decoration: none; }
+
+.filter-container {
+  text-align: center; }
+
+.input-filter {
+  margin-top: 6px;
+  width: 90%;
+  height: 20px;
+  border: solid 2px #BBBBBB; }
