@@ -40,7 +40,7 @@ class PokedexList extends React.Component{
 
   render() {
     let listElements = this.state.pokedex.map( pokemon => {
-      return <PokedexListElement key={pokemon.number} base_media="http://pokeapi.co/media/img/" data={pokemon} />
+      return <PokedexListElement key={pokemon.number} base_media={this.props.base_media} data={pokemon} />
     });
     return (
       <ul className="pokemon-list">
@@ -49,5 +49,10 @@ class PokedexList extends React.Component{
     );
   }
 }
+
+PokedexList.defaultProps = {
+  source: "http://pokeapi.co/api/v1/pokedex/",
+  base_media: "http://pokeapi.co/media/img/"
+};
 
 export default PokedexList;

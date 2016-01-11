@@ -1,14 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const PokedexListElement = (props) => {
-  var number = props.data.resource_uri.substring(15, props.data.resource_uri.length - 1);
   return (
     <li className="pokemon-list__item">
       <div className="list-element-container pokemon-list__text">
-        <span className="pokemon-list__number">#{number}</span> {props.data.name}
+        <Link className="pokemon-link" to={'/pokemon/'+props.data.number}><span className="pokemon-list__number">#{props.data.number}</span> {props.data.name}</Link>
       </div>
       <div className="list-element-container list-image-container">
-        <img src={props.base_media + number + '.png'} alt={props.data.name} className="pokemon-list__image" />
+        <Link to={'/pokemon/'+props.data.number}>
+          <img src={props.base_media + props.data.number + '.png'} alt={props.data.name} className="pokemon-list__image" />
+        </Link>
       </div>
     </li>
   );

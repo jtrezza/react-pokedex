@@ -3,7 +3,8 @@ body {
   margin: 0;
   padding: 0;
   color: #999999;
-  font-family: 'Montserrat', sans-serif; }
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; }
 
 .main-container {
   box-sizing: border-box;
@@ -102,6 +103,11 @@ body {
     position: absolute;
     right: 10px;
     top: 10px; }
+
+.pokemon-link {
+  text-decoration: none;
+  color: #999999;
+  text-transform: uppercase; }
 
 .order-by-container {
   position: fixed;
