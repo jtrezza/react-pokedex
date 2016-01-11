@@ -1,11 +1,116 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React Pokédex</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Pokédex</title>
+  <link rel="stylesheet" href="dist/css/main.css"/>
 </head>
 <body>
-<h1>Hello world</h1>
+<header class="main-header">
+  <h1 class="main-title">POKÉDEX</h1>
+</header>
+<div class="whitespace-border-bottom">
+  <hr/>
+</div>
+<section class="main-container">
+  <section class="list-container" id="js-list-container">
+    <!--<ul class="pokemon-list">
+      <li class="pokemon-list__item">
+      <div class="list-element-container pokemon-list__text">
+        <span class="pokemon-list__number">#130</span> GYARADOS
+      </div><div class="list-element-container list-image-container">
+      <img src="http://pokeapi.co/media/img/130.png" alt="Pokemon Name" class="pokemon-list__image"/>
+    </div>
+    </li><li class="pokemon-list__item">
+      <div class="list-element-container pokemon-list__text">
+        <span class="pokemon-list__number">#130</span> GYARADOS
+      </div><div class="list-element-container list-image-container">
+      <img src="http://pokeapi.co/media/img/130.png" alt="Pokemon Name" class="pokemon-list__image"/>
+    </div>
+    </li><li class="pokemon-list__item">
+      <div class="list-element-container pokemon-list__text">
+        <span class="pokemon-list__number">#130</span> GYARADOS
+      </div><div class="list-element-container list-image-container">
+      <img src="http://pokeapi.co/media/img/130.png" alt="Pokemon Name" class="pokemon-list__image"/>
+    </div>
+    </li><li class="pokemon-list__item">
+      <div class="list-element-container pokemon-list__text">
+        <span class="pokemon-list__number">#130</span> GYARADOS
+      </div><div class="list-element-container list-image-container">
+      <img src="http://pokeapi.co/media/img/130.png" alt="Pokemon Name" class="pokemon-list__image"/>
+    </div>
+    </li><li class="pokemon-list__item">
+      <div class="list-element-container pokemon-list__text">
+        <span class="pokemon-list__number">#130</span> GYARADOS
+      </div><div class="list-element-container list-image-container">
+      <img src="http://pokeapi.co/media/img/130.png" alt="Pokemon Name" class="pokemon-list__image"/>
+    </div>
+    </li><li class="pokemon-list__item">
+      <div class="list-element-container pokemon-list__text">
+        <span class="pokemon-list__number">#130</span> GYARADOS
+      </div><div class="list-element-container list-image-container">
+      <img src="http://pokeapi.co/media/img/130.png" alt="Pokemon Name" class="pokemon-list__image"/>
+    </div>
+    </li><li class="pokemon-list__item">
+      <div class="list-element-container pokemon-list__text">
+        <span class="pokemon-list__number">#130</span> GYARADOS
+      </div><div class="list-element-container list-image-container">
+      <img src="http://pokeapi.co/media/img/130.png" alt="Pokemon Name" class="pokemon-list__image"/>
+    </div>
+    </li><li class="pokemon-list__item">
+      <div class="list-element-container pokemon-list__text">
+        <span class="pokemon-list__number">#130</span> GYARADOS
+      </div><div class="list-element-container list-image-container">
+      <img src="http://pokeapi.co/media/img/130.png" alt="Pokemon Name" class="pokemon-list__image"/>
+    </div>
+    </li><li class="pokemon-list__item">
+      <div class="list-element-container pokemon-list__text">
+        <span class="pokemon-list__number">#130</span> GYARADOS
+      </div><div class="list-element-container list-image-container">
+      <img src="http://pokeapi.co/media/img/130.png" alt="Pokemon Name" class="pokemon-list__image"/>
+    </div>
+    </li><li class="pokemon-list__item">
+      <div class="list-element-container pokemon-list__text">
+        <span class="pokemon-list__number">#130</span> GYARADOS
+      </div><div class="list-element-container list-image-container">
+      <img src="http://pokeapi.co/media/img/130.png" alt="Pokemon Name" class="pokemon-list__image"/>
+    </div>
+    </li><li class="pokemon-list__item">
+      <div class="list-element-container pokemon-list__text">
+        <span class="pokemon-list__number">#130</span> GYARADOS
+      </div><div class="list-element-container list-image-container">
+      <img src="http://pokeapi.co/media/img/130.png" alt="Pokemon Name" class="pokemon-list__image"/>
+    </div>
+    </li><li class="pokemon-list__item">
+      <div class="list-element-container pokemon-list__text">
+        <span class="pokemon-list__number">#130</span> GYARADOS
+      </div><div class="list-element-container list-image-container">
+      <img src="http://pokeapi.co/media/img/130.png" alt="Pokemon Name" class="pokemon-list__image"/>
+    </div>
+    </li><li class="pokemon-list__item">
+      <div class="list-element-container pokemon-list__text">
+        <span class="pokemon-list__number">#130</span> GYARADOS
+      </div><div class="list-element-container list-image-container">
+      <img src="http://pokeapi.co/media/img/130.png" alt="Pokemon Name" class="pokemon-list__image"/>
+    </div>
+    </li>
+
+    </ul>-->
+  </section>
+
+</section>
+<section class="order-by-container">
+  <div class="order-by__items-container">
+    <a href="" class="order-by-anchor">NUMBER</a>
+    <a href="" class="order-by-anchor">LETTER</a>
+    <a href="" class="order-by-anchor">REGION</a>
+    <a href="" class="order-by-anchor">TYPE</a>
+  </div>
+  <div class="filter-container">
+    <input type="text" class="filter" />
+  </div>
+</section>
+<script src="dist/js/bundle.js"></script>
 </body>
 </html>

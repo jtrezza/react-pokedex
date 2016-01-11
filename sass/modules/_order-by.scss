@@ -1,0 +1,18 @@
+
+.order-by-container{
+  position: fixed;
+  bottom:0;
+  left:0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.order-by__items-container{
+  display: flex;
+  justify-content: space-around;
+}
+
+.order-by-anchor{
+  color: $dark-grey;
+  text-decoration: none;
+}
