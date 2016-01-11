@@ -12,7 +12,7 @@ class PokedexList extends React.Component{
   }
 
   filter(e){
-    let filtered = this.state.pokedex.filter(pokemon => pokemon.name.indexOf(e.target.value) > -1);
+    let filtered = this.state.pokedex.filter(pokemon => pokemon.name.indexOf(e.target.value.toLowerCase().trim()) > -1);
     this.setState({pokedex_filter: filtered});
   }
 

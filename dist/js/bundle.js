@@ -19713,7 +19713,7 @@
 	    key: 'filter',
 	    value: function filter(e) {
 	      var filtered = this.state.pokedex.filter(function (pokemon) {
-	        return pokemon.name.indexOf(e.target.value) > -1;
+	        return pokemon.name.indexOf(e.target.value.toLowerCase().trim()) > -1;
 	      });
 	      this.setState({ pokedex_filter: filtered });
 	    }
